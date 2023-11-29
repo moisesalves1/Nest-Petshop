@@ -1,20 +1,33 @@
-import { Controller } from "@nestjs/common";
+import { Controller, Get, Post, Put, Delete, Param, Body } from "@nestjs/common";
+import { Customer } from "../models/customer.model";
 
 @Controller('v1/customers')
 export class CustomerController {
+    @Get()
     get() {
-        return 'Obter os clientes'
+        return 'Obter os clientes';
     }
 
-    post() {
-        return 'Criar um cliente'
+    @Get(':document')
+    getById(@Param('document') document: string) {
+        return 'Obter o cliente ' + document;
     }
 
-    put() {
-        return 'Atualizar um cliente'
+    @Post()
+    post(@Body() body: Customer) {
+        return body.name;
     }
 
-    delete() {
-        return 'Remover um cliente'
+    @Put(':document')
+    put(@Param('document') document, @Body() body) {
+        return {
+            customer: document,
+            data: body
+        };
+    }
+
+    @Delete(':document')
+    delete(@Param('document') document) {
+        return 'Remover o cliente ' + document;
     } 
 }
