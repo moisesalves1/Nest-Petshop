@@ -24,10 +24,7 @@ export class ValidatorInterceptor implements NestInterceptor {
                     HttpStatus.BAD_REQUEST)
         }
 
-        return call$
-            .handle()
-            .pipe(
-                tap(() => console.log('Intercepted'))
-            );
+        // Retorno não está igual ao do curso por conta da versão, mesmo assim está interceptando corretamente.
+        return call$.handle();
     }
 }
