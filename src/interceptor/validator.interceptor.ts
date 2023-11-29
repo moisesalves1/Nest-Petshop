@@ -10,7 +10,7 @@ export class ValidatorInterceptor implements NestInterceptor {
         
     }
 
-    intercept(context: ExecutionContext, next$: CallHandler): Observable<any> {
+    intercept(context: ExecutionContext, call$: CallHandler): Observable<any> {
         const body = context.switchToHttp().getRequest().body;
         const valid = this.contract.validate(body);
 
@@ -24,7 +24,7 @@ export class ValidatorInterceptor implements NestInterceptor {
                     HttpStatus.BAD_REQUEST)
         }
 
-        return next$
+        return call$
             .handle()
             .pipe(
                 tap(() => console.log('Intercepted'))
