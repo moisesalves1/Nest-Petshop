@@ -4,6 +4,7 @@ import { Model } from "mongoose";
 import { Customer } from "src/modules/backoffice/models/customer.model";
 import { QueryDto } from "src/modules/backoffice/dtos/query.dto";
 import { UpdateCustomerDTO } from "../dtos/customer/update-customer.dto";
+import { CreditCard } from "../models/creditcard.model";
 
 @Injectable()
 export class CustomerService {
@@ -31,5 +32,14 @@ export class CustomerService {
 
     async query(model: QueryDto): Promise<Customer[]> {
         return await this.model.find(model.query, model.fields, { skip: model.skip, limit: model.take }).exec();
+    }
+
+    async saveOrUpdateCreditCard(document: string, data: CreditCard): Promise<Customer> {
+        const options = { upsert: true };
+        return await this.model.findOneAndUpdate({ document }, {
+            $set: {
+                card: data
+            },
+        }, options);
     }
 }

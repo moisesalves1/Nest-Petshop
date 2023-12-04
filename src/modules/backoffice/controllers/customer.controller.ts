@@ -16,6 +16,8 @@ import { QueryContract } from "src/modules/backoffice/contracts/query.contract";
 import { CreateCustomerContract } from "src/modules/backoffice/contracts/customer/create-customer.contract";
 import { UpdateCustomerDTO } from "../dtos/customer/update-customer.dto";
 import { UpdateCustomerContract } from "../contracts/customer/update-customer.contract";
+import { CreateCreditCardContract } from "../contracts/customer/create-credit-card.contract";
+import { CreditCard } from "../models/creditcard.model";
 
 @Controller('v1/customers')
 export class CustomerController {
@@ -68,6 +70,17 @@ export class CustomerController {
             return new Result(null, true, model, null);
         } catch (error) {
             throw new HttpException(new Result('Não foi possível alterar seus dados', false, null, error), HttpStatus.BAD_REQUEST)
+        }
+    }
+
+    @Post(':document/credit-cards')
+    @UseInterceptors(new ValidatorInterceptor(new CreateCreditCardContract()))
+    async createCreditCard(@Param('document') document, @Body() model: CreditCard) {
+        try {
+            await this.customerService.saveOrUpdateCreditCard(document, model);
+            return new Result(null, true, model, null);
+        } catch (error) {
+            throw new HttpException(new Result('Não foi possível adicionar seu cartão de crédito', false, null, error), HttpStatus.BAD_REQUEST)
         }
     }
 }
