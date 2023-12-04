@@ -11,6 +11,9 @@ import { Address } from "../models/address.model";
 import { CreateAddressContract } from "../contracts/customer/create-address.contract";
 import { CreatePetContract } from "../contracts/customer/create-pet.contract";
 import { Pet } from "../models/pet.model";
+import { Query } from "mongoose";
+import { QueryDto } from "../dtos/query.dto";
+import { QueryContract } from "../contracts/customer/query.contract";
 
 @Controller('v1/customers')
 export class CustomerController {
@@ -93,5 +96,11 @@ export class CustomerController {
         return new Result(null, true, customer, null)
     }
 
+    @Post('query')
+    @UseInterceptors(new ValidatorInterceptor(new QueryContract()))
+    async query(@Body() model: QueryDto) {
+        const customers = await this.customerService.query(model);
+        return new Result(null, true, customers, null);
+    }
 
 }

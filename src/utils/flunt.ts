@@ -38,7 +38,7 @@ export class Flunt {
         }
     }
 
-    isGreaterThan = (valuea, valueb, message) => {
+    isNotGreaterThan = (valuea, valueb, message) => {
         if (valuea > valueb) {
             this.errors.push(message);
         }
