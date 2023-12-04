@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Body, UseInterceptors, HttpException, HttpStatus } from "@nestjs/common";
+import { Controller, Get, Post, Param, Body, UseInterceptors, HttpException, HttpStatus, Put } from "@nestjs/common";
 
 import { ValidatorInterceptor } from "src/interceptor/validator.interceptor";
 
@@ -10,10 +10,12 @@ import { User } from "src/modules/backoffice/models/user.model";
 import { Result } from "src/modules/backoffice/models/result.model";
 
 import { QueryDto } from "src/modules/backoffice/dtos/query.dto";
-import { CreateCustomerDTO } from "src/modules/backoffice/dtos/create-customer.dto";
+import { CreateCustomerDTO } from "src/modules/backoffice/dtos/customer/create-customer.dto";
 
 import { QueryContract } from "src/modules/backoffice/contracts/query.contract";
 import { CreateCustomerContract } from "src/modules/backoffice/contracts/customer/create-customer.contract";
+import { UpdateCustomerDTO } from "../dtos/customer/update-customer.dto";
+import { UpdateCustomerContract } from "../contracts/customer/update-customer.contract";
 
 @Controller('v1/customers')
 export class CustomerController {
@@ -58,4 +60,14 @@ export class CustomerController {
         return new Result(null, true, customers, null);
     }
 
+    @Put(':document')
+    @UseInterceptors(new ValidatorInterceptor(new UpdateCustomerContract()))
+    async update(@Param('document') document, @Body() model: UpdateCustomerDTO) {
+        try {
+            await this.customerService.update(document, model);
+            return new Result(null, true, model, null);
+        } catch (error) {
+            throw new HttpException(new Result('Não foi possível alterar seus dados', false, null, error), HttpStatus.BAD_REQUEST)
+        }
+    }
 }
