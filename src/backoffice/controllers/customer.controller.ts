@@ -5,11 +5,14 @@ import { CreateCustomerContract } from "../contracts/customer.contracts";
 import { CreateCustomerDTO } from "../dtos/create-customer.dto";
 import { AccountService } from "../services/account.service";
 import { User } from "../models/user.model";
+import { CustomerService } from "../services/customer.service";
+import { Customer } from "../models/customer.model";
 
 @Controller('v1/customers')
 export class CustomerController {
 
-    constructor(private readonly accountService: AccountService) {
+    constructor(private readonly accountService: AccountService,
+        private readonly customerService: CustomerService) {
 
     }
 
@@ -29,7 +32,9 @@ export class CustomerController {
         const user = await this.accountService.create(
             new User(model.document, model.password, true)
         );
-        return new Result('Cliente criado com sucesso!', true, user, null);
+        const customer = new Customer(model.name, model.document, model.email, null, null, null, null, user);
+        const  res = await this.customerService.create(customer);
+        return new Result('Cliente criado com sucesso!', true, res, null);
         // return new Result('Cliente criado com sucesso', true, body, null);
     }
 
