@@ -5,7 +5,7 @@ import { ValidatorInterceptor } from "src/interceptor/validator.interceptor";
 import { Address } from "src/modules/backoffice/models/address.model";
 import { Result } from "src/modules/backoffice/models/result.model";
 
-import { CreateAddressContract } from "src/modules/backoffice/contracts/customer/create-address.contract";
+import { CreateAddressContract } from "src/modules/backoffice/contracts/address/create-address.contract";
 import { AddressService } from "../services/address.service";
 import { AddressType } from "../enums/address-type.enum";
 

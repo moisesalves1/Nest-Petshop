@@ -12,7 +12,7 @@ import { Result } from "src/modules/backoffice/models/result.model";
 import { QueryDto } from "src/modules/backoffice/dtos/query.dto";
 import { CreateCustomerDTO } from "src/modules/backoffice/dtos/create-customer.dto";
 
-import { QueryContract } from "src/modules/backoffice/contracts/customer/query.contract";
+import { QueryContract } from "src/modules/backoffice/contracts/query.contract";
 import { CreateCustomerContract } from "src/modules/backoffice/contracts/customer/create-customer.contract";
 
 @Controller('v1/customers')

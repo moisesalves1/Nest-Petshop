@@ -9,7 +9,10 @@ export class QueryContract implements Contract {
     validate(model: QueryDto): boolean {
         const flunt = new Flunt();
 
-        flunt.isNotGreaterThan(model.take, 1000, 'Take inválido! Valor máximo é igual a 1000')
+        if(!model.query)
+            model.query = {};
+
+        flunt.isNotGreaterThan(model.take, 1000, 'Sua query não pode retornar mais que 1000 registros')
 
         this.errors = flunt.errors;
         return flunt.isValid();

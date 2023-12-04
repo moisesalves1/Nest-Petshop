@@ -5,7 +5,7 @@ import { ValidatorInterceptor } from "src/interceptor/validator.interceptor";
 import { Pet } from "src/modules/backoffice/models/pet.model";
 import { Result } from "src/modules/backoffice/models/result.model";
 
-import { CreatePetContract } from "src/modules/backoffice/contracts/customer/create-pet.contract";
+import { CreatePetContract } from "src/modules/backoffice/contracts/pet/create-pet.contract";
 import { PetService } from "../services/pet.service";
 
 @Controller('v1/pets')
