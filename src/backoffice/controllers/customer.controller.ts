@@ -70,4 +70,15 @@ export class CustomerController {
         }
     }
 
+    @Put(':document/pets/:id')
+    @UseInterceptors(new ValidatorInterceptor(new CreatePetContract()))
+    async updatePet(@Param('document') document, @Param('id') id, @Body() model: Pet) {
+        try {
+            const res = await this.customerService.updatePet(document, id, model);
+            return new Result(null, true, res, null);
+        } catch (error) {
+            throw new HttpException(new Result('Não foi possível atualizar seu pet', false, null, error), HttpStatus.BAD_REQUEST)
+        }
+    }
+
 }
