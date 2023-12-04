@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors, HttpException, HttpStatus } from "@nestjs/common";
+import { Controller, Get, Post, Put, Param, Body, UseInterceptors, HttpException, HttpStatus } from "@nestjs/common";
 import { Result } from "../models/result.model";
 import { ValidatorInterceptor } from "src/interceptor/validator.interceptor";
 import { CreateCustomerContract } from "../contracts/customer/create-customer.contract";
@@ -87,6 +87,11 @@ export class CustomerController {
         return new Result(null, true, customers, null)
     }
 
+    @Get(':document')
+    async get(@Param('document') document) {
+        const customer = await this.customerService.find(document);
+        return new Result(null, true, customer, null)
+    }
 
 
 }
