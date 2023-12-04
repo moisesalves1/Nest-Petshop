@@ -4,7 +4,7 @@ import { Model } from "mongoose";
 import { Customer } from "src/modules/backoffice/models/customer.model";
 import { QueryDto } from "src/modules/backoffice/dtos/query.dto";
 import { UpdateCustomerDTO } from "../dtos/customer/update-customer.dto";
-import { CreditCard } from "../models/creditcard.model";
+import { CreditCard } from "src/modules/backoffice/models/creditcard.model";
 
 @Injectable()
 export class CustomerService {

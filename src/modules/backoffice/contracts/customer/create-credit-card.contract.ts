@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Flunt } from "src/utils/flunt";
 import { Contract } from "src/modules/backoffice/contracts/contract";
-import { CreditCard } from "../../models/creditcard.model";
+import { CreditCard } from "src/modules/backoffice/models/creditcard.model";
 
 @Injectable()
 export class CreateCreditCardContract implements Contract {

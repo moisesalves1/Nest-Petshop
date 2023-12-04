@@ -6,8 +6,8 @@ import { Address } from "src/modules/backoffice/models/address.model";
 import { Result } from "src/modules/backoffice/models/result.model";
 
 import { CreateAddressContract } from "src/modules/backoffice/contracts/address/create-address.contract";
-import { AddressService } from "../services/address.service";
-import { AddressType } from "../enums/address-type.enum";
+import { AddressService } from "src/modules/backoffice/services/address.service";
+import { AddressType } from "src/modules/backoffice/enums/address-type.enum";
 
 @Controller('v1/addresses')
 export class AddressController {

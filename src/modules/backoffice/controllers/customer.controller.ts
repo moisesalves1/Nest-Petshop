@@ -14,10 +14,10 @@ import { CreateCustomerDTO } from "src/modules/backoffice/dtos/customer/create-c
 
 import { QueryContract } from "src/modules/backoffice/contracts/query.contract";
 import { CreateCustomerContract } from "src/modules/backoffice/contracts/customer/create-customer.contract";
-import { UpdateCustomerDTO } from "../dtos/customer/update-customer.dto";
-import { UpdateCustomerContract } from "../contracts/customer/update-customer.contract";
-import { CreateCreditCardContract } from "../contracts/customer/create-credit-card.contract";
-import { CreditCard } from "../models/creditcard.model";
+import { UpdateCustomerDTO } from "src/modules/backoffice/dtos/customer/update-customer.dto";
+import { UpdateCustomerContract } from "src/modules/backoffice/contracts/customer/update-customer.contract";
+import { CreateCreditCardContract } from "src/modules/backoffice/contracts/customer/create-credit-card.contract";
+import { CreditCard } from "src/modules/backoffice/models/creditcard.model";
 
 @Controller('v1/customers')
 export class CustomerController {
