@@ -7,6 +7,7 @@ import { AccountService } from 'src/modules/backoffice/services/account.service'
 import { CustomerService } from 'src/modules/backoffice/services/customer.service';
 import { AddressService } from './services/address.service';
 import { PetService } from './services/pet.service';
+import { AddressController } from './controllers/address.controller';
 
 @Module({
     imports: [
@@ -21,7 +22,7 @@ import { PetService } from './services/pet.service';
             }
         ])
     ],
-    controllers: [CustomerController],
+    controllers: [CustomerController, AddressController],
     providers: [AccountService, AddressService, CustomerService, PetService],
 })
 export class BackofficeModule {}

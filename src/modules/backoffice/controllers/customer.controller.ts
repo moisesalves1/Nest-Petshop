@@ -6,7 +6,6 @@ import { AccountService } from "src/modules/backoffice/services/account.service"
 import { CustomerService } from "src/modules/backoffice/services/customer.service";
 
 import { Customer } from "src/modules/backoffice/models/customer.model";
-import { Address } from "src/modules/backoffice/models/address.model";
 import { Pet } from "src/modules/backoffice/models/pet.model";
 import { User } from "src/modules/backoffice/models/user.model";
 import { Result } from "src/modules/backoffice/models/result.model";
@@ -15,7 +14,6 @@ import { QueryDto } from "src/modules/backoffice/dtos/query.dto";
 import { CreateCustomerDTO } from "src/modules/backoffice/dtos/create-customer.dto";
 
 import { QueryContract } from "src/modules/backoffice/contracts/customer/query.contract";
-import { CreateAddressContract } from "src/modules/backoffice/contracts/customer/create-address.contract";
 import { CreatePetContract } from "src/modules/backoffice/contracts/customer/create-pet.contract";
 import { CreateCustomerContract } from "src/modules/backoffice/contracts/customer/create-customer.contract";
 
@@ -40,29 +38,6 @@ export class CustomerController {
         } catch (error) {
             //Rolback manual
             throw new HttpException(new Result('Não foi possível realizar seu cadastro', false, null, error), HttpStatus.BAD_REQUEST)
-        }
-    }
-
-    @Post(':document/addresses/billing')
-    @UseInterceptors(new ValidatorInterceptor(new CreateAddressContract()))
-    async addBillingAddress(@Param('document') document, @Body() model: Address){
-        try {
-            await this.customerService.addBillingAddress(document, model);
-            return new Result(null, true, model, null);
-        } catch (error) {
-            throw new HttpException(new Result('Não foi possível adicionar seu endereço', false, null, error), HttpStatus.BAD_REQUEST)
-        }
-    }
-
-
-    @Post(':document/addresses/shipping')
-    @UseInterceptors(new ValidatorInterceptor(new CreateAddressContract()))
-    async addShippingAddress(@Param('document') document, @Body() model: Address){
-        try {
-            await this.customerService.addShippingAddress(document, model);
-            return new Result(null, true, model, null);
-        } catch (error) {
-            throw new HttpException(new Result('Não foi possível adicionar seu endereço', false, null, error), HttpStatus.BAD_REQUEST)
         }
     }
 
