@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Param, Body, UseInterceptors, HttpException, HttpStatus } from "@nestjs/common";
+import { Controller, Post, Param, Body, UseInterceptors, HttpException, HttpStatus } from "@nestjs/common";
 
 import { ValidatorInterceptor } from "src/interceptor/validator.interceptor";
 
