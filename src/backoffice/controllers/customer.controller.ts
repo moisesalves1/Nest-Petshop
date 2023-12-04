@@ -1,12 +1,14 @@
 import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors, HttpException, HttpStatus } from "@nestjs/common";
 import { Result } from "../models/result.model";
 import { ValidatorInterceptor } from "src/interceptor/validator.interceptor";
-import { CreateCustomerContract } from "../contracts/customer.contracts";
+import { CreateCustomerContract } from "../contracts/customer/create-customer.contract";
 import { CreateCustomerDTO } from "../dtos/create-customer.dto";
 import { AccountService } from "../services/account.service";
 import { User } from "../models/user.model";
 import { CustomerService } from "../services/customer.service";
 import { Customer } from "../models/customer.model";
+import { Address } from "../models/address.model";
+import { CreateAddressContract } from "../contracts/customer/create-address.contract";
 
 @Controller('v1/customers')
 export class CustomerController {
@@ -39,6 +41,29 @@ export class CustomerController {
         } catch (error) {
             //Rolback manual
             throw new HttpException(new Result('Não foi possível realizar seu cadastro', false, null, error), HttpStatus.BAD_REQUEST)
+        }
+    }
+
+    @Post(':document/addresses/billing')
+    @UseInterceptors(new ValidatorInterceptor(new CreateAddressContract()))
+    async addBillingAddress(@Param('document') document, @Body() model: Address){
+        try {
+            await this.customerService.addBillingAddress(document, model);
+            return new Result(null, true, model, null);
+        } catch (error) {
+            throw new HttpException(new Result('Não foi possível adicionar seu endereço', false, null, error), HttpStatus.BAD_REQUEST)
+        }
+    }
+
+
+    @Post(':document/addresses/shipping')
+    @UseInterceptors(new ValidatorInterceptor(new CreateAddressContract()))
+    async addShippingAddress(@Param('document') document, @Body() model: Address){
+        try {
+            await this.customerService.addShippingAddress(document, model);
+            return new Result(null, true, model, null);
+        } catch (error) {
+            throw new HttpException(new Result('Não foi possível adicionar seu endereço', false, null, error), HttpStatus.BAD_REQUEST)
         }
     }
 
