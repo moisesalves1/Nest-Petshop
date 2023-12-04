@@ -1,19 +1,23 @@
 import { Controller, Get, Post, Put, Param, Body, UseInterceptors, HttpException, HttpStatus } from "@nestjs/common";
-import { Result } from "../models/result.model";
+
 import { ValidatorInterceptor } from "src/interceptor/validator.interceptor";
-import { CreateCustomerContract } from "../contracts/customer/create-customer.contract";
-import { CreateCustomerDTO } from "../dtos/create-customer.dto";
-import { AccountService } from "../services/account.service";
-import { User } from "../models/user.model";
-import { CustomerService } from "../services/customer.service";
-import { Customer } from "../models/customer.model";
-import { Address } from "../models/address.model";
-import { CreateAddressContract } from "../contracts/customer/create-address.contract";
-import { CreatePetContract } from "../contracts/customer/create-pet.contract";
-import { Pet } from "../models/pet.model";
-import { Query } from "mongoose";
-import { QueryDto } from "../dtos/query.dto";
-import { QueryContract } from "../contracts/customer/query.contract";
+
+import { AccountService } from "src/modules/backoffice/services/account.service";
+import { CustomerService } from "src/modules/backoffice/services/customer.service";
+
+import { Customer } from "src/modules/backoffice/models/customer.model";
+import { Address } from "src/modules/backoffice/models/address.model";
+import { Pet } from "src/modules/backoffice/models/pet.model";
+import { User } from "src/modules/backoffice/models/user.model";
+import { Result } from "src/modules/backoffice/models/result.model";
+
+import { QueryDto } from "src/modules/backoffice/dtos/query.dto";
+import { CreateCustomerDTO } from "src/modules/backoffice/dtos/create-customer.dto";
+
+import { QueryContract } from "src/modules/backoffice/contracts/customer/query.contract";
+import { CreateAddressContract } from "src/modules/backoffice/contracts/customer/create-address.contract";
+import { CreatePetContract } from "src/modules/backoffice/contracts/customer/create-pet.contract";
+import { CreateCustomerContract } from "src/modules/backoffice/contracts/customer/create-customer.contract";
 
 @Controller('v1/customers')
 export class CustomerController {
