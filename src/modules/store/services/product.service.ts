@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Product } from "../entities/product.entity";
-import { Repository } from "typeorm";
+import { Equal, Repository } from "typeorm";
 
 
 @Injectable()
@@ -14,6 +14,10 @@ export class ProductService {
 
         async get(): Promise<Product[]> {
             return await this.repository.find();
+        }
+
+        async getById(id: number): Promise<Product> {
+            return await this.repository.findOneBy({ id: Equal(id) })
         }
 
         async post(product: Product) {
