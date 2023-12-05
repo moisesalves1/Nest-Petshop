@@ -26,7 +26,7 @@ export class OrderController {
         }
     }
 
-    @Get(':customer')
+    @Get('/customer/:customer')
     async getByCustomer(@Param('customer') customer: string) {
         try {
             const orders = await this.orderService.getByCustomer(customer);
