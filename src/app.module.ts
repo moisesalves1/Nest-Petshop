@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BackofficeModule } from 'src/modules/backoffice/backoffice.module';
 import { StoreModule } from 'src/modules/store/store.module';
 import { Product } from './modules/store/entities/product.entity';
+import { OrderItem } from './modules/store/entities/order-item.entity';
+import { Order } from './modules/store/entities/order.entity';
 
 @Module({
   imports: [
@@ -17,7 +19,7 @@ import { Product } from './modules/store/entities/product.entity';
       database: 'petshop',
       // entities: [__dirname + '/**/*.entity{.ts.js}' ],
       synchronize: true,
-      entities: [Product]
+      entities: [Product, Order, OrderItem]
     }),
     BackofficeModule,
     StoreModule
