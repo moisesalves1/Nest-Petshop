@@ -12,6 +12,9 @@ export class Order {
     @Column('datetime')
     date: Date;
 
+    @Column({ length: 11 })
+    customer: string;
+
     @OneToMany(() => OrderItem, (oi) => oi.order)
     items: OrderItem[];
 }
