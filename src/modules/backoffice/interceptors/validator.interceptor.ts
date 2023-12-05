@@ -1,7 +1,7 @@
 import { ExecutionContext, Injectable, NestInterceptor, CallHandler, HttpException, HttpStatus } from "@nestjs/common";
 import { Observable } from "rxjs";
 import { Contract } from "src/modules/backoffice/contracts/contract";
-import { Result } from "src/modules/backoffice/models/result.model";
+import { ResultDto } from "src/modules/backoffice/dtos/result.dto";
 
 @Injectable()
 export class ValidatorInterceptor implements NestInterceptor {
@@ -16,7 +16,7 @@ export class ValidatorInterceptor implements NestInterceptor {
 
         if(!valid){
             throw new HttpException(
-                new Result(
+                new ResultDto(
                     'Ops, algo saiu errado',
                     false,
                     null,

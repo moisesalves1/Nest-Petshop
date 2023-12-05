@@ -7,7 +7,7 @@ import { CustomerService } from "src/modules/backoffice/services/customer.servic
 
 import { Customer } from "src/modules/backoffice/models/customer.model";
 import { User } from "src/modules/backoffice/models/user.model";
-import { Result } from "src/modules/backoffice/models/result.model";
+import { ResultDto } from "src/modules/backoffice/dtos/result.dto";
 
 import { QueryDto } from "src/modules/backoffice/dtos/query.dto";
 import { CreateCustomerDTO } from "src/modules/backoffice/dtos/customer/create-customer.dto";
@@ -32,34 +32,34 @@ export class CustomerController {
     async post(@Body() model: CreateCustomerDTO) {
         try {
             const user = await this.accountService.create(
-                new User(model.document, model.password, true)
+                new User(model.document, model.password, true, ['user'])
             );
             const customer = new Customer(model.name, model.document, model.email, [], null, null, null, user);
             const  res = await this.customerService.create(customer);
-            return new Result('Cliente criado com sucesso!', true, res, null);
+            return new ResultDto('Cliente criado com sucesso!', true, res, null);
         } catch (error) {
             //Rolback manual
-            throw new HttpException(new Result('Não foi possível realizar seu cadastro', false, null, error), HttpStatus.BAD_REQUEST)
+            throw new HttpException(new ResultDto('Não foi possível realizar seu cadastro', false, null, error), HttpStatus.BAD_REQUEST)
         }
     }
 
     @Get()
     async getAll() {
         const customers = await this.customerService.findAll();
-        return new Result(null, true, customers, null)
+        return new ResultDto(null, true, customers, null)
     }
 
     @Get(':document')
     async get(@Param('document') document) {
         const customer = await this.customerService.find(document);
-        return new Result(null, true, customer, null)
+        return new ResultDto(null, true, customer, null)
     }
 
     @Post('query')
     @UseInterceptors(new ValidatorInterceptor(new QueryContract()))
     async query(@Body() model: QueryDto) {
         const customers = await this.customerService.query(model);
-        return new Result(null, true, customers, null);
+        return new ResultDto(null, true, customers, null);
     }
 
     @Put(':document')
@@ -67,9 +67,9 @@ export class CustomerController {
     async update(@Param('document') document, @Body() model: UpdateCustomerDTO) {
         try {
             await this.customerService.update(document, model);
-            return new Result(null, true, model, null);
+            return new ResultDto(null, true, model, null);
         } catch (error) {
-            throw new HttpException(new Result('Não foi possível alterar seus dados', false, null, error), HttpStatus.BAD_REQUEST)
+            throw new HttpException(new ResultDto('Não foi possível alterar seus dados', false, null, error), HttpStatus.BAD_REQUEST)
         }
     }
 
@@ -78,9 +78,9 @@ export class CustomerController {
     async createCreditCard(@Param('document') document, @Body() model: CreditCard) {
         try {
             await this.customerService.saveOrUpdateCreditCard(document, model);
-            return new Result(null, true, model, null);
+            return new ResultDto(null, true, model, null);
         } catch (error) {
-            throw new HttpException(new Result('Não foi possível adicionar seu cartão de crédito', false, null, error), HttpStatus.BAD_REQUEST)
+            throw new HttpException(new ResultDto('Não foi possível adicionar seu cartão de crédito', false, null, error), HttpStatus.BAD_REQUEST)
         }
     }
 }

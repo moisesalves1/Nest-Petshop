@@ -3,7 +3,7 @@ import { Controller, Post, Param, Body, UseInterceptors, HttpException, HttpStat
 import { ValidatorInterceptor } from "src/modules/backoffice/interceptors/validator.interceptor";
 
 import { Address } from "src/modules/backoffice/models/address.model";
-import { Result } from "src/modules/backoffice/models/result.model";
+import { ResultDto } from "src/modules/backoffice/dtos/result.dto";
 
 import { CreateAddressContract } from "src/modules/backoffice/contracts/address/create-address.contract";
 import { AddressService } from "src/modules/backoffice/services/address.service";
@@ -21,9 +21,9 @@ export class AddressController {
     async addBillingAddress(@Param('document') document, @Body() model: Address){
         try {
             await this.service.create(document, model, AddressType.Billing);
-            return new Result(null, true, model, null);
+            return new ResultDto(null, true, model, null);
         } catch (error) {
-            throw new HttpException(new Result('Não foi possível adicionar seu endereço', false, null, error), HttpStatus.BAD_REQUEST)
+            throw new HttpException(new ResultDto('Não foi possível adicionar seu endereço', false, null, error), HttpStatus.BAD_REQUEST)
         }
     }
 
@@ -33,9 +33,9 @@ export class AddressController {
     async addShippingAddress(@Param('document') document, @Body() model: Address){
         try {
             await this.service.create(document, model, AddressType.Shipping);
-            return new Result(null, true, model, null);
+            return new ResultDto(null, true, model, null);
         } catch (error) {
-            throw new HttpException(new Result('Não foi possível adicionar seu endereço', false, null, error), HttpStatus.BAD_REQUEST)
+            throw new HttpException(new ResultDto('Não foi possível adicionar seu endereço', false, null, error), HttpStatus.BAD_REQUEST)
         }
     }
 
