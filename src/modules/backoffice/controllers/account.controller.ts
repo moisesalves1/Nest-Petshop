@@ -1,4 +1,4 @@
-import { Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { JwtAuthGuard } from "src/shared/guards/auth.guard";
 import { AuthService } from "src/shared/services/auth.service";
@@ -15,7 +15,8 @@ export class AccountController {
 
     @Get('')
     @UseGuards(JwtAuthGuard)
-    findAll() {
+    findAll(@Req() request) {
+        console.log(request.user)
         return [];
     }
     
