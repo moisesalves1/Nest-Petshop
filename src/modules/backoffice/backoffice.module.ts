@@ -19,7 +19,7 @@ import { AccountController } from './controllers/account.controller';
     imports: [
         PassportModule.register({ defaultStrategy: 'jwt' }),
         JwtModule.register({
-            secretOrPrivateKey: '54147f5ce0d2',
+            secret: '54147f5ce0d2',
             signOptions: {
                 expiresIn: 3600
             }
