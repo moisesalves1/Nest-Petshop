@@ -1,6 +1,6 @@
 import { Controller, Post, Put, Param, Body, UseInterceptors, HttpException, HttpStatus } from "@nestjs/common";
 
-import { ValidatorInterceptor } from "src/interceptor/validator.interceptor";
+import { ValidatorInterceptor } from "src/modules/backoffice/interceptors/validator.interceptor";
 
 import { Pet } from "src/modules/backoffice/models/pet.model";
 import { Result } from "src/modules/backoffice/models/result.model";
