@@ -7,7 +7,7 @@ import { OrderItemDto } from "../dtos/order-item.dto";
 import { Order } from "../entities/order.entity";
 import { OrderItem } from "../entities/order-item.entity";
 
-@Controller('v1/order')
+@Controller('v1/orders')
 export class OrderController {
 
     constructor(

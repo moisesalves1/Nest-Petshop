@@ -6,6 +6,8 @@ import { Product } from './entities/product.entity';
 import { Order } from './entities/order.entity';
 import { OrderItem } from './entities/order-item.entity';
 import { OrderService } from './services/order.service';
+import { OrderController } from './controllers/order.controller';
+import { OrderItemService } from './services/order-item.service';
 
 @Module({
     imports: [TypeOrmModule.forFeature([
@@ -13,7 +15,7 @@ import { OrderService } from './services/order.service';
         Order,
         OrderItem
     ])],
-    controllers: [ProductController],
-    providers: [ProductService, OrderService],
+    controllers: [ProductController, OrderController],
+    providers: [ProductService, OrderService, OrderItemService],
 })
 export class StoreModule {}
