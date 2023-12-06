@@ -4,11 +4,13 @@ import { Model } from "mongoose";
 import { Customer } from "src/modules/backoffice/models/customer.model";
 import { Address } from "src/modules/backoffice/models/address.model";
 import { AddressType } from "src/modules/backoffice/enums/address-type.enum";
+import { HttpService } from "@nestjs/axios";
 
 @Injectable()
 export class AddressService {
     
-    constructor(@InjectModel('Customer') private readonly model: Model<Customer>) {
+    constructor(@InjectModel('Customer') private readonly model: Model<Customer>,
+    private readonly httpService: HttpService) {
         
     }
 
@@ -32,6 +34,11 @@ export class AddressService {
         }
 
         
+    }
+
+    getAddressByZipCode(zipcode: string) {
+        const url = `https://viacep.com.br/ws/${zipcode}/json/`;
+        return this.httpService.get(url);
     }
 
     
