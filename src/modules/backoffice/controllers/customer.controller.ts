@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Param, Body, UseInterceptors, HttpException, HttpStatus, Put } from "@nestjs/common";
-
+import { Md5 } from "md5-typescript";
 import { ValidatorInterceptor } from "src/modules/backoffice/interceptors/validator.interceptor";
 
 import { AccountService } from "src/modules/backoffice/services/account.service";
@@ -18,6 +18,7 @@ import { UpdateCustomerDTO } from "src/modules/backoffice/dtos/customer/update-c
 import { UpdateCustomerContract } from "src/modules/backoffice/contracts/customer/update-customer.contract";
 import { CreateCreditCardContract } from "src/modules/backoffice/contracts/customer/create-credit-card.contract";
 import { CreditCard } from "src/modules/backoffice/models/creditcard.model";
+import { CacheInterceptor } from "@nestjs/cache-manager";
 
 @Controller('v1/customers')
 export class CustomerController {
@@ -31,8 +32,9 @@ export class CustomerController {
     @UseInterceptors(new ValidatorInterceptor(new CreateCustomerContract()))
     async post(@Body() model: CreateCustomerDTO) {
         try {
+            const password = await Md5.init(`${model.password}${process.env.SALT_KEY}`)
             const user = await this.accountService.create(
-                new User(model.document, model.password, true, ['user'])
+                new User(model.document, password, true, ['user'])
             );
             const customer = new Customer(model.name, model.document, model.email, [], null, null, null, user);
             const  res = await this.customerService.create(customer);
@@ -44,6 +46,7 @@ export class CustomerController {
     }
 
     @Get()
+    @UseInterceptors(CacheInterceptor)
     async getAll() {
         const customers = await this.customerService.findAll();
         return new ResultDto(null, true, customers, null)

@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { CacheModule } from '@nestjs/cache-manager';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -14,9 +15,12 @@ import { JwtStrategy } from 'src/shared/strategies/jwt.strategy';
 import { AddressController } from 'src/modules/backoffice/controllers/address.controller';
 import { PetController } from 'src/modules/backoffice/controllers/pet.controller';
 import { AccountController } from './controllers/account.controller';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
     imports: [
+        HttpModule,
+        CacheModule.register(),
         PassportModule.register({ defaultStrategy: 'jwt' }),
         JwtModule.register({
             secret: '54147f5ce0d2',
