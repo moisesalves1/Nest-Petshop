@@ -18,6 +18,7 @@ import { UpdateCustomerDTO } from "src/modules/backoffice/dtos/customer/update-c
 import { UpdateCustomerContract } from "src/modules/backoffice/contracts/customer/update-customer.contract";
 import { CreateCreditCardContract } from "src/modules/backoffice/contracts/customer/create-credit-card.contract";
 import { CreditCard } from "src/modules/backoffice/models/creditcard.model";
+import { CacheInterceptor } from "@nestjs/cache-manager";
 
 @Controller('v1/customers')
 export class CustomerController {
@@ -45,6 +46,7 @@ export class CustomerController {
     }
 
     @Get()
+    @UseInterceptors(CacheInterceptor)
     async getAll() {
         const customers = await this.customerService.findAll();
         return new ResultDto(null, true, customers, null)
