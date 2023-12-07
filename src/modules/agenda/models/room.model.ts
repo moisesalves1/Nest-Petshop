@@ -1,4 +1,5 @@
 import { AggregateRoot } from "@nestjs/cqrs";
+import { RoomBookedEvent } from "../events/room-booked.event";
 
 
 export class Room extends AggregateRoot {
@@ -8,6 +9,6 @@ export class Room extends AggregateRoot {
     }
 
     book(customerId: string) {
-        
+        this.apply(new RoomBookedEvent(customerId, this.id));
     }
 }
