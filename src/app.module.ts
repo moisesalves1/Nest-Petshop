@@ -6,6 +6,7 @@ import { StoreModule } from 'src/modules/store/store.module';
 import { Product } from './modules/store/entities/product.entity';
 import { OrderItem } from './modules/store/entities/order-item.entity';
 import { Order } from './modules/store/entities/order.entity';
+import { AgendaModule } from './modules/agenda/agenda.module';
 require('dotenv/config');
 
 @Module({
@@ -22,7 +23,8 @@ require('dotenv/config');
       entities: [Product, Order, OrderItem]
     }),
     BackofficeModule,
-    StoreModule
+    StoreModule,
+    AgendaModule
   ],
   controllers: [],
   providers: [],
