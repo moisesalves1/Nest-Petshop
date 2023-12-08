@@ -9,11 +9,11 @@ export class RoomBookService {
         private readonly commandBus: CommandBus
     ) { }
 
-    async Book(customerId: string, roomId: string) {
+    async Book(command: BookRoomCommand) {
         console.log('RoomBookService:Book - Executando o serviço...');
 
         return this.commandBus.execute(
-            new BookRoomCommand(customerId, roomId)
+            command
         );
     }
 }
