@@ -5,9 +5,11 @@ import { RoomBookService } from './services/room-book.service';
 import { RoomRepository } from './repositories/room.repository';
 import { CommandHandlers } from './commands/handlers';
 import { EventHandlers } from './events/handlers';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
-    imports: [CqrsModule],
+    imports: [CqrsModule,
+        PassportModule.register({ defaultStrategy: 'jwt' }),],
     controllers: [AgendaController],
     providers: [
         RoomBookService,
