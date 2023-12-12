@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@nestjs/apollo": "^12.0.11"
+  }
+}
