@@ -21,8 +21,15 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     }
 
     @SubscribeMessage('chat')
-    chat(client: any, data: any) {}
+    chat(client: any, data: any) {
+        console.log(data)
+        client.broadcast.emit('chat', data);
+        return data;
+    }
 
     @SubscribeMessage('users')
-    users(client: any, data: any) {}
+    users(client: any, data: any) {
+        console.log(data)
+        return data;
+    }
 }
